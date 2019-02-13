@@ -1,4 +1,4 @@
-# Create AzureFirewall using an Azure ARM template - Gov
+# Create AzureFirewall using an Azure ARM template - Non Trust Public Cloud
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmarckean%2FAzureFirewall02%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
@@ -9,9 +9,11 @@
 
 <p style="text-align:center"><img src="AzureFirewall03.jpg" alt="Azure Firewall Hub & Spoke"></p>
 
-This **Gov** solution means you don't trust sending traffic out to the internet from within Azure, all traffic comes back on-prem with forced tunneling, then out via on-prem firewalls & proxies.
+This **Non Trust Public Cloud** option means you don't trust sending traffic out to the internet from within Azure, all traffic comes back on-prem with forced tunneling, then out via on-prem firewalls & proxies. This works by the customer avertising **0.0.0.0/0** from on-prem and the BGP route is propagated to the spoke vNets.
 
 This template creates 3 virtual networks (Servers vNet, Gateway vNet and a Hub vNet for an Azure Firewall). Also inclueded is a jumpbox VM with public IP with RDP access.
+
+The Azure Firewall can be used in this scenario to send traffic based on custom IP address ranges to other Azure vNets.
 
 Also created is a server VM with only a private IP, UDR route to point to AzureFirewall for the **ServersSubnet** and an AzureFirewall with 1 sample application rule (allowing *microsoft.com), 1 NAT rule for access to the **Server** uring port translation, port 3391 to port 3389 and 1 sample network rule.
 
